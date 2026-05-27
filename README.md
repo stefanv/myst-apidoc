@@ -1,9 +1,11 @@
-# numpydoc2json
+# myst-apidoc
 
-Proof of concept documentation string exported.
+Proof of concept API documentation generator for [mystmd](https://mystmd.org).
 
-Recursively walk a module, and export numpydoc docstrings to JSON.
+Recursively walk a module, and export numpydoc-format docstrings to JSON.
 
 ## Usage
 
+```sh
 python npdoc2json.py skimage
+```
