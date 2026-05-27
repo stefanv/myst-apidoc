@@ -1,6 +1,7 @@
 # /// pyproject
 # [project]
 # dependencies = [
+#     "numpydoc",
 #     "rst-to-myst"
 # ]
 

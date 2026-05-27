@@ -1,14 +1,14 @@
 import type { MystPlugin } from 'myst-common';
-import { npdocJsonDirective } from './npdocJsonDirective.js';
+import { apiDirective } from './apiDirective.js';
 import { versionAddedDirective } from './versionAdded.js';
 import { funcRole } from './funcRole.js';
 
 const plugin: MystPlugin = {
-  name: 'Plugin to document Python API using npdoc2json output',
-  author: 'Franklin Koch',
+  name: 'Plugin to document APIs (currently using npdoc2json output)',
+  author: 'mystmd developers',
   license: 'MIT',
   transforms: [],
-  directives: [npdocJsonDirective, versionAddedDirective],
+  directives: [apiDirective, versionAddedDirective],
   roles: [funcRole],
 };
 

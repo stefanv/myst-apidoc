@@ -284,9 +284,9 @@ export function moduleToMdast(module: Module, parse: Parser, opts: Options): Gen
   return section;
 }
 
-export const npdocJsonDirective: DirectiveSpec = {
-  name: 'npdoc',
-  doc: 'Directive for loading docstrings from npdoc2json output',
+export const apiDirective: DirectiveSpec = {
+  name: 'apidoc',
+  doc: 'Directive for loading docstrings (currently from npdoc2json output)',
   arg: {
     type: String,
     doc: 'File with npdoc2json output',

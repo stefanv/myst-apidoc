@@ -1,4 +1,4 @@
-# npdoc-json-plugin
+# myst-apidoc-plugin
 
 MyST plugin for rendering API docs from npdoc2json output
 
@@ -25,7 +25,13 @@ Then link to the built file from you `myst.yml`:
 project:
   ...
   plugins:
-    - npdoc-json-plugin/dist/index.mjs
+    - myst-apidoc-plugin/dist/index.mjs
+```
+
+## Extracting docstring data
+
+```sh
+python npdoc2json skimage > skimage-api.json
 ```
 
 ## Plugin Usage
@@ -33,14 +39,14 @@ project:
 In your markdown you may now reference a `npdoc2json` output to render the full documentation:
 
 ```md
-:::{npdoc} ./skimage.json
+:::{apidoc} ./skimage-api.json
 :::
 ```
 
 You can specify the module name and heading depth as options:
 
 ```md
-:::{npdoc} ./skimage.json
+:::{apidoc} ./skimage-api.json
 :module: skimage
 :depth: 2
 :::
@@ -49,7 +55,7 @@ You can specify the module name and heading depth as options:
 You can also target a specific submodule:
 
 ```md
-:::{npdoc} ./skimage.json#color
+:::{apidoc} ./skimage-api.json#color
 :module: skimage
 :depth: 2
 :::
@@ -58,7 +64,7 @@ You can also target a specific submodule:
 or a specific function:
 
 ```md
-:::{npdoc} ./skimage.json#color.lch2lab
+:::{apidoc} ./skimage-api.json#color.lch2lab
 :module: skimage
 :depth: 2
 :::

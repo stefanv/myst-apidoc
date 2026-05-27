@@ -1,5 +1,5 @@
 {
-  "name": "xref-prefix-plugin",
+  "name": "myst-apidoc-plugin",
   "version": "0.0.0",
   "sideEffects": false,
   "type": "module",
