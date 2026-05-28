@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+#
 # /// pyproject
 # [project]
 # dependencies = [
@@ -5,6 +7,7 @@
 #     "rst-to-myst"
 # ]
 
+import argparse
 import inspect
 from numpydoc.docscrape import NumpyDocString, Parameter
 import sys
@@ -12,10 +15,6 @@ import types
 import json
 
 import rst_to_myst
-
-
-modname = sys.argv[1]
-mod = __import__(modname)
 
 
 def is_submodule(child: types.ModuleType, parent: types.ModuleType) -> bool:
@@ -68,4 +67,19 @@ def walk_mod(mod: types.ModuleType, path: str = "") -> dict:
     return out
 
 
-print(json.dumps(walk_mod(mod, path="skimage")))
+if __name__ == "__main__":
+    YELLOW = "\033[1;33m"
+    RESET = "\033[0m"
+
+    parser = argparse.ArgumentParser(
+        prog="fleece",
+        description=f"{YELLOW}🟨{RESET} Fleece extracts a Python package's numpydoc-formatted docstrings as JSON. "
+        "Currently, this is for use by the myst-apidoc-plugin only.",
+    )
+    parser.add_argument("package", help="The package to index")
+    args = parser.parse_args()
+
+    pkgname = args.package
+    pkg = __import__(pkgname)
+
+    print(json.dumps(walk_mod(pkg, path=pkgname)))

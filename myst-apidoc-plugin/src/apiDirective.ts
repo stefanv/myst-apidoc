@@ -286,10 +286,10 @@ export function moduleToMdast(module: Module, parse: Parser, opts: Options): Gen
 
 export const apiDirective: DirectiveSpec = {
   name: 'apidoc',
-  doc: 'Directive for loading docstrings (currently from npdoc2json output)',
+  doc: 'Directive for loading docstrings (currently from fleece output)',
   arg: {
     type: String,
-    doc: 'File with npdoc2json output',
+    doc: 'File with fleece output',
     required: true,
   },
   options: {

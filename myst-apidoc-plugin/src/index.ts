@@ -4,7 +4,7 @@ import { versionAddedDirective } from './versionAdded.js';
 import { funcRole } from './funcRole.js';
 
 const plugin: MystPlugin = {
-  name: 'Plugin to document APIs (currently using npdoc2json output)',
+  name: 'Plugin to document APIs (currently using fleece output)',
   author: 'mystmd developers',
   license: 'MIT',
   transforms: [],

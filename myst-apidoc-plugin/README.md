@@ -1,6 +1,6 @@
 # myst-apidoc-plugin
 
-MyST plugin for rendering API docs from npdoc2json output
+MyST plugin for rendering API docs from `fleece` output.
 
 ![](./thumbnail.png)
 
@@ -31,12 +31,12 @@ project:
 ## Extracting docstring data
 
 ```sh
-python npdoc2json skimage > skimage-api.json
+fleece skimage > skimage-api.json
 ```
 
 ## Plugin Usage
 
-In your markdown you may now reference a `npdoc2json` output to render the full documentation:
+In your markdown you may now reference the generator JSON output to render the full documentation:
 
 ```md
 :::{apidoc} ./skimage-api.json
