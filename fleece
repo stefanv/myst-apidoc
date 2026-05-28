@@ -9,11 +9,13 @@
 
 import argparse
 import inspect
-from numpydoc.docscrape import NumpyDocString, Parameter
+import importlib
+import re
 import sys
 import types
 import json
 
+from numpydoc.docscrape import NumpyDocString, Parameter
 import rst_to_myst
 
 
@@ -43,10 +45,27 @@ def walk_mod(mod: types.ModuleType, path: str = "") -> dict:
                 out[member_name] = dict(NumpyDocString(member.__doc__))
                 npdoc = out[member_name]
 
-                rst_fields = ["Extended Summary", "Notes"]
+                rst_fields = ["Extended Summary", "Notes", "References"]
                 for field in rst_fields:
                     if npdoc.get(field):
                         npdoc[field] = rst2myst(npdoc[field])
+
+                # Post-process references
+                references = npdoc.get("References")
+                if references:
+                    reference_list = [
+                        " ".join(p.split())
+                        for p in re.split(r'\[\^footnote-\d+\]:', references)
+                        if p.strip()
+                    ]
+                    # Perhaps we want to simply link to the DOI, but for now
+                    # this provides a nice hover with the full citation
+                    # and a link
+                    reference_list_with_doi = [
+                        re.sub(r'\{DOI\}`([^`]+)`', r'[](doi:\1)', entry)
+                        for entry in reference_list
+                    ]
+                    npdoc["References"] = reference_list_with_doi
 
                 for key, val in npdoc.items():
                     if isinstance(val, list) and len(val) > 0:
@@ -55,7 +74,7 @@ def walk_mod(mod: types.ModuleType, path: str = "") -> dict:
                             npdoc[key] = [
                                 {
                                     "name": el.name,
-                                    "type": el.type,
+                                    "type": rst2myst(el.type),
                                     "desc": rst2myst(el.desc),
                                 }
                                 for el in val
@@ -76,10 +95,10 @@ if __name__ == "__main__":
         description=f"{YELLOW}🟨{RESET} Fleece extracts a Python package's numpydoc-formatted docstrings as JSON. "
         "Currently, this is for use by the myst-apidoc-plugin only.",
     )
-    parser.add_argument("package", help="The package to index")
+    parser.add_argument("package", help="The package to index (can also be submodule, e.g. skimage.morphology")
     args = parser.parse_args()
 
     pkgname = args.package
-    pkg = __import__(pkgname)
+    pkg = importlib.import_module(pkgname)
 
     print(json.dumps(walk_mod(pkg, path=pkgname)))

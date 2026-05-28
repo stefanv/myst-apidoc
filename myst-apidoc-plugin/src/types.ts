@@ -17,7 +17,7 @@ export type Func = {
   Raises?: Parameter[];
   Warns?: Parameter[];
   Notes?: string | []; // String with new-line chars in it
-  References?: string[] | ''; // Could do something to split on '.. [1]' prefix or just pull out DOIs or something.
+  References?: string[]; // Could do something to split on '.. [1]' prefix or just pull out DOIs or something.
   Examples?: string[] | ''; // Mostly code and output, but sometimes narrative. Cannot just trim and join with space.
   'See Also'?: ([string, null] | string)[][][]; // Not sure about the structure, but if we filter and flat, the strings are <function> (in the same submodule) or <module.submodule.function> (in different submodules)
 

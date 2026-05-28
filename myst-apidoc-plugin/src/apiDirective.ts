@@ -147,6 +147,18 @@ export function functionToMdast(
     );
   }
   if (func.References) {
+    const referencesAST = {
+      type: 'list',
+      ordered: true,
+      children: func.References
+        .map(text => ({
+          type: 'listItem',
+          children: [{
+            type: 'paragraph',
+            children: parse(text).children
+          }]
+        }))
+    };
     section.push(
       {
         type: 'heading',
@@ -158,8 +170,7 @@ export function functionToMdast(
           },
         ],
       },
-      // We need to do better here
-      ...parse(func.References.join('\n')).children,
+      referencesAST
     );
   }
   if (func.Examples) {
